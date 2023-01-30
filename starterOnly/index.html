@@ -63,31 +63,27 @@
               onsubmit="return validate();"
             >
               <div
-                class="formData" id="formData-first-name">
+                class="formData" id="formData-first-name" data-error="Veuillez renseigner au minimum 2 caractères pour ce champ.">
                 <label>Prénom</label><br>
                 <input
                   class="text-control"
                   type="text"
                   id="first-name"
                   name="first"
-                  minlength="2"
-                  required
                 /><br>
               </div>
               <div
-                class="formData" id="formData-last-name">
+                class="formData" id="formData-last-name" data-error="Veuillez renseigner au minimum 2 caractères pour ce champ.">
                 <label>Nom</label><br>
                 <input
                   class="text-control"
                   type="text"
                   id="last-name"
-                  name="last"
-                  minlength="2" 
-                  required         
+                  name="last"      
                 /><br>
               </div>
               <div
-                class="formData" id="formData-email">
+                class="formData" id="formData-email" data-error="Veuillez renseigner une adresse au format valide.">
                 <label>E-mail</label><br>
                 <input
                   class="text-control"
@@ -97,7 +93,7 @@
                 /><br>
               </div>
               <div
-                class="formData" id="formData-birth-date">
+                class="formData" id="formData-birth-date" data-error="Veuillez renseigner votre date de naissance.">
                 <label>Date de naissance</label><br>
                 <input
                   class="text-control"
@@ -107,20 +103,20 @@
                 /><br>
               </div>
               <div
-                class="formData" id="formData-tournament-attendances">
+                class="formData" id="formData-tournament-attendances" data-error="Veuillez renseigner une valeur pour ce champ.">
                 <label>À combien de tournois GameOn avez-vous déjà participé ?</label><br>
                 <input type="number" class="text-control" id="quantity-of-tournaments" name="quantity" min="0" max="99">
               </div>
               <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
               <div
-                class="formData" id="formData-location">
+                class="formData" id="formData-location" data-error="Veuillez sélectionner une option">
                 <input
                   class="checkbox-input"
                   type="radio"
                   id="location1"
                   name="location"
                   value="New York"
-                  required
+                
                 />
                 <label class="checkbox-label" for="location1">
                   <span class="checkbox-icon"></span>
@@ -184,15 +180,15 @@
               </div>
 
               <div
-                class="formData" id="formData-cgu">
+                class="formData" id="formData-cgu" data-error="Veuillez accepter les conditions d'utilisastion pour soumettre le formulaire.">
                 <input
                   class="checkbox-input"
                   type="checkbox"
                   id="checkbox1"
                   checked
-                  required
+                
                 />
-                <label class="checkbox2-label" for="checkbox1" required>
+                <label class="checkbox2-label" for="checkbox1">
                   <span class="checkbox-icon"></span>
                   J'ai lu et accepté les conditions d'utilisation.
                 </label>

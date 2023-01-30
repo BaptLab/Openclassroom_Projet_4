@@ -56,11 +56,6 @@ function closeModal() {
 
 //Récupération des inputs selon le HTML
 //MODIFS - précision des ID lorsque cela est possible
-const firstNameUser = document.getElementById("first-name");
-const lastNameUser = document.getElementById("last-name");
-const emailUser = document.getElementById("email");
-const birthDateUser = document.getElementById("birth-date");
-const numberOfTournamentAttendances = document.getElementById("quantity-of-tournaments");
 
 const cguAccepted = document.getElementById("checkbox1");
 const eventAlert = document.getElementById("checkbox2");
@@ -75,92 +70,147 @@ const nextTournamentLocation5 = document.getElementById("location5");
 const nextTournamentLocation6 = document.getElementById("location6");
 
 
-//ISSUE n°3 - Ajouter des messages de validation et/ou d'erreur
-
-/* Des messages d'erreur spécifiques doivent apparaître sous l'entrée qui n'est pas correcte. Les messages d'erreur doivent s'afficher sous le champ de saisie associé. Exemples :
-
-"Veuillez entrer 2 caractères ou plus pour le champ du nom."
-"Vous devez choisir une option."
-"Vous devez vérifier que vous acceptez les termes et conditions."
-"Vous devez entrer votre date de naissance." */
-
-//QUESTION - Est-il attendu qu'une classe relative au message d'erreur soit crée en css puis ajouter aux élements ?
-
-// 1er message - First Name
-//création du paragraphe affichant le msg d'erreur
-const errorFirstName = document.createElement('p');
-//insertion du texte d'erreur dans le paragraphe
-errorFirstName.textContent = "Veuillez renseigner au minimum 2 caractères pour ce champ";
-//ajout du code css relatif au msg d'erreur
-errorFirstName.style.color ="#FF4E60";
-errorFirstName.style.fontSize ="10px";
-errorFirstName.style.fontFamily ="var(--font-default)";
-errorFirstName.style.paddingLeft ='0px';
-errorFirstName.style.paddingBottom ='0px';
-//ajout de l'élement au DOM via le parent correspondant à la zone d'input concernée
-document.getElementById("formData-first-name").appendChild(errorFirstName);
-//ajout du code css pour la bordure rouge
-firstNameUser.style.border = "solid 2px #FF4E60";
-
-// 2e message - Last Name
-const errorLastName = document.createElement('p')
-errorLastName.textContent = "Veuillez renseignez au minimum 2 caractères pour ce champ";
-//version contracté du css pour le message d'erreur
-errorLastName.style.cssText = 'color: rgb(255, 78, 96); font-size: 10px; font-family: var(--font-default); padding-left: 0px; padding-bottom: 0px;';
-document.getElementById('formData-last-name').appendChild(errorLastName);
-lastNameUser.style.border = "solid 2px #FF4E60";
-
-// 3e message - Email
-const errorEmail = document.createElement('p');
-errorEmail.textContent = "Veuillez entrer une adresse au format valide (exemple : prenom.nom@gmail.com)";
-errorEmail.style.cssText = 'color: rgb(255, 78, 96); font-size: 10px; font-family: var(--font-default); padding-left: 0px; padding-bottom: 0px;';
-document.getElementById('formData-email').appendChild(errorEmail);
-emailUser.style.border = "solid 2px #FF4E60";
-
-//4e message - Date de naissance
-const errorBirthDate = document.createElement('p');
-errorBirthDate.textContent = "Veuillez entrer une adresse au format valide (exemple : prenom.nom@gmail.com)";
-errorBirthDate.style.cssText = 'color: rgb(255, 78, 96); font-size: 10px; font-family: var(--font-default); padding-left: 0px; padding-bottom: 0px;';
-document.getElementById('formData-birth-date').appendChild(errorBirthDate);
-birthDateUser.style.border = "solid 2px #FF4E60";
+//Check des inputs + renvoi de valeur selon le check
 
 
+  //Attendances Check
 
-//6e message - Choix d'une localisation
-const errorLocation = document.createElement('p');
-errorLocation.textContent = "Veuillez sélectionner une ville";
-errorLocation.style.cssText = 'color: rgb(255, 78, 96); font-size: 10px; font-family: var(--font-default); padding-left: 0px; padding-bottom: 5px;';
-document.getElementById('formData-location').appendChild(errorLocation);
+  let numberOfTournamentInputCheck = false;
 
-
-//7e message - Choix d'une localisation
-const errorCgu = document.createElement('p');
-errorCgu.textContent = "Vous devez accepter les conditions d'utilisations pour envoyer le formulaire";
-errorCgu.style.cssText = 'color: rgb(255, 78, 96); font-size: 10px; font-family: var(--font-default); padding-bottom :15px; padding-left : 0px; padding-top:3px;';
-document.getElementById('formData-cgu').appendChild(errorCgu);
-
-
-/* numberOfTournamentAttendances.addEventListener("blur",isEmpty(numberOfTournamentAttendances));
-
-function isEmpty (input) {
-  if (input.value.length == 0) {
-    setErrorTournamentAttendances()
+  const numberOfTournamentAttendances = document.getElementById("quantity-of-tournaments");
+  numberOfTournamentAttendances.addEventListener('blur', numberOfTournamentInputChecking);
+  
+  function numberOfTournamentInputChecking () {
+    const inputValue = numberOfTournamentAttendances.value;
+    if (inputValue === null || inputValue === undefined || inputValue.trim() === "") 
+    {
+      document.getElementById("formData-tournament-attendances").setAttribute("data-error-visible", "true");
+      numberOfTournamentInputCheck = false;
+    }
+    else 
+    {
+      document.getElementById("formData-tournament-attendances").setAttribute("data-error-visible", "false");
+      numberOfTournamentInputCheck = true;
+    }
   }
-}
- */
 
-function setErrorTournamentAttendances(){
-  //5e message - Nombre de tournoi participé
-  const errorTournamentAttendances = document.createElement('p');
-  errorTournamentAttendances.textContent = "Veuillez renseignez une valeur";
-  errorTournamentAttendances.style.cssText = 'color: rgb(255, 78, 96); font-size: 10px; font-family: var(--font-default); padding-left: 0px; padding-bottom: 0px;';
-  document.getElementById('formData-tournament-attendances').appendChild(errorTournamentAttendances);
-  numberOfTournamentAttendances.style.border = "solid 2px #FF4E60";
-}
+  //BirthDate
 
+  let birthDateInputCheck = false;
 
-numberOfTournamentAttendances.addEventListener("blur", () => {
-    if (numberOfTournamentAttendances.value.length == 0) {
-    setErrorTournamentAttendances()
+  const birthDateUser = document.getElementById("birth-date");
+  birthDateUser.addEventListener('blur', birthDateInputChecking);
+  
+  function birthDateInputChecking(){
+    const inputValue = birthDateUser.value;
+    if (inputValue === null || inputValue === undefined || inputValue.trim() === "") 
+    {
+      document.getElementById("formData-birth-date").setAttribute("data-error-visible", "true");
+      birthDateInputCheck = false;
+    }
+    else 
+    {
+      document.getElementById("formData-birth-date").setAttribute("data-error-visible", "false");
+      birthDateInputCheck = true;
+    }
   }
-});
+
+
+  //Email check
+
+  let emailUserInputCheck = false;
+
+  const emailUser = document.getElementById("email");
+  emailUser.addEventListener('blur', emailInputChecking);
+  
+  function emailInputChecking () {
+    const inputValue = emailUser.value;
+    if (inputValue === null || inputValue === undefined || inputValue.trim() === "") 
+    {
+      document.getElementById("formData-email").setAttribute("data-error-visible", "true");
+      emailUserInputCheck = false;
+      //Si champ incorrect --> garde la valeur en false
+    }
+    else 
+    {
+      document.getElementById("formData-email").setAttribute("data-error-visible", "false");
+      emailUserInputCheck = true;
+      //Si champ remplit correctement --> change la valeur en true
+    }
+  }
+
+
+  //Last name check
+
+  let lastNameInputCheck = false;
+
+  const lastNameUser = document.getElementById("last-name");
+  lastNameUser.addEventListener('blur', lastNameInputChecking); 
+  
+  function lastNameInputChecking() {
+    const inputValue = lastNameUser.value;
+    if (inputValue === null || inputValue === undefined || inputValue.trim() === "") 
+    {
+      document.getElementById("formData-last-name").setAttribute("data-error-visible", "true");
+      lastNameInputCheck = false;
+    }
+    else 
+    {
+      document.getElementById("formData-last-name").setAttribute("data-error-visible", "false");
+      lastNameInputCheck = true;
+    }
+  }
+
+
+  //First name check
+
+  let firstNameInputCheck = false;
+
+  const firstNameUser = document.getElementById("first-name");
+  firstNameUser.addEventListener('blur', firstNameInputChecking);
+  
+  function firstNameInputChecking() {
+      const inputValue = firstNameUser.value;
+      if (inputValue === null || inputValue === undefined || inputValue.trim() === "") 
+      {
+        document.getElementById("formData-first-name").setAttribute("data-error-visible", "true");
+        firstNameInputCheck = false;
+      }
+      else 
+      {
+        document.getElementById("formData-first-name").setAttribute("data-error-visible", "false");
+        firstNameInputCheck = true;
+      }
+    }
+
+
+
+//Formulaire submition
+
+    const btnSubmit = document.querySelector(".btn-submit");
+    btnSubmit.addEventListener("click", (event) => {
+      event.preventDefault();
+      if (
+      firstNameInputCheck === true && 
+      lastNameInputCheck === true && 
+      emailUserInputCheck === true &&
+      birthDateInputCheck === true &&
+      numberOfTournamentInputCheck === true) 
+      {
+        alert("Formulaire correctement rempli");
+      }
+      else 
+      {
+        firstNameInputChecking()
+        lastNameInputChecking()
+        emailInputChecking ()
+        birthDateInputChecking()
+        numberOfTournamentInputChecking ()
+      }
+      
+    })
+ 
+
+ 
+
+
