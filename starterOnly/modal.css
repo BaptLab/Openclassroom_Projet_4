@@ -195,6 +195,13 @@ label {
   display: inline-block;
   margin-bottom: 11px;
 }
+
+.text-label-required::after{
+  content: "*";
+  color:#e54858;
+  padding-left: 4px;
+  font-size: 18px;
+}
 input {
   padding: 8px;
   border: 0.8px solid #ccc;
@@ -208,14 +215,25 @@ input {
   font-size: 20px;
   height: 48px;
 }
+
+.text-checkbox1 {
+  padding: 0px;
+  top: 0;
+}
+
+.text-checkbox2 {
+  padding: 0px;
+  padding-top: 2px;
+}
+
 /*Créer un espace pour le msg d'erreur, prédéfinis son style et intègre le texte à afficher*/
 .formData[data-error]::after {
   content: attr(data-error);
   font-size: 0.5em;
   color: #e54858;
   display: block;
-  margin-top: 12px;
-  margin-bottom: 7px;
+  margin-top: 11px;
+  margin-bottom: 9px;
   text-align: left;
   line-height: 0.3;
   opacity: 0;
@@ -232,7 +250,9 @@ input {
   border: 2px solid #e54858;
 }
 
-
+#formData-location {
+  margin-bottom: 15px;
+}
 .checkbox-label,
 .checkbox2-label {
   position: relative;
@@ -322,11 +342,13 @@ input {
 .close:after {
   transform: rotate(-45deg);
 }
+
+
 .btn-submit,
 .btn-signup {
   background: #fe142f;
   display: block;
-  margin: 0 auto;
+  margin: 15px auto 0px auto;
   border-radius: 7px;
   font-size: 1rem;
   padding: 12px 82px;
@@ -403,7 +425,8 @@ input {
 /* custom select end */
 .text-label {
   font-weight: normal;
-  font-size: 16px;
+  font-size: 17px;
+  padding-right: 0px;
 }
 .hero-section {
   min-height: 93vh;
@@ -463,6 +486,7 @@ input {
   height: 100%;
   display: block;
   padding: 0;
+  object-fit: cover;
 }
 .copyrights {
   color: #fe142f;
@@ -479,6 +503,22 @@ footer {
   padding-right: 2vw;
   margin: 0 20px;
 }
+
+/*Mon code*/
+.modal-confirmation {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 35px 0px; 
+  margin: 25% auto;
+}
+
+.modal-confirmation-container p {
+  padding-bottom: 20px;
+}
+/*Mon code*/
+
+
 @media screen and (max-width: 800px) {
   .hero-section {
     display: block;

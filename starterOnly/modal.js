@@ -18,83 +18,86 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
+  document.querySelector(".content").style.display ="block";
+  
 }
 
 
-//MON CODE
+/////////////////////////////////////////////MON CODE/////////////////////////////////////////////
 
 
-//ISSUE n°1 - Fermeture de la modale
-
-//Récupération de l'élement "X"
-const modalCloseBtn = document.querySelector(".close");
-
-//Ajout d'un évènement au click
-modalCloseBtn.addEventListener('click', closeModal);
-
-// copie de la fonction launchmodal en inversant les paramètres 
-function closeModal() {
-  modalbg.style.display = "none";
-}
+/*MODALES*/
 
 
-//ISSUE N°2 - Implémenter les entrées du formulaire
+  /*Modale d'inscription*/
 
-  /* (1) Lier les labels aux entrées dans le HTML en utilisant les attributs "for" et "id" dans le code existant. Corriger le code HTML quand nécessaire.
-  (2) Utiliser du JavaScript pur (pas de jQuery) pour terminer le formulaire :
+  //SI clique sur bouton 'X' de la modale
+  const modalCloseBtn = document.querySelector(".close");
+  modalCloseBtn.addEventListener('click', closeModal);
+  
+  //--> La modale se ferme
+  function closeModalContent() {
+    document.querySelector(".content").style.display ="none";
+  }
+  
 
-  Le formulaire doit être valide quand l'utilisateur clique sur "Submit"
-  Les données doivent être saisies correctement :
-  (1) Le champ Prénom a un minimum de 2 caractères / n'est pas vide. (cf.HTML) 
-  (2) Le champ du nom de famille a un minimum de 2 caractères  / n'est pas vide. (cf.HTML)
-  (3) L'adresse électronique est valide. (déjà fait cf. HTML)
-  (4) Pour le nombre de concours, une valeur numérique est saisie. (déjà fait)
-  (5) Un bouton radio est sélectionné. (required ajouté au HTML MAIS pas de message d'erreur si vide)
-  (6) La case des conditions générales est cochée, l'autre case est facultative / peut être laissée décochée. (required ajouté au HTML MAIS pas de message d'erreur si vide)
-  Conserver les données du formulaire (ne pas effacer le formulaire) lorsqu'il ne passe pas la validation.
-  */
+  /*Modale de confirmation*/
 
-//Récupération des inputs selon le HTML
-//MODIFS - précision des ID lorsque cela est possible
+  //Modale de confirmation invisible par défault
+  document.querySelector(".modal-confirmation").style.display ="none";
 
-const cguAccepted = document.getElementById("checkbox1");
-const eventAlert = document.getElementById("checkbox2");
+  //fonction pour faire apparaître la modale de confirmation
+  function openConfirmation() {
+    document.querySelector(".modal-confirmation").style.display ="flex";
+  }
+  
 
-//tournaments locations 
-//QUESTION : la variable doit-elle porter le nom du lieu sachant que celui-ci est déjà dans la value ?
-const nextTournamentLocation1 = document.getElementById("location1");
-const nextTournamentLocation2 = document.getElementById("location2");
-const nextTournamentLocation3 = document.getElementById("location3");
-const nextTournamentLocation4 = document.getElementById("location4");
-const nextTournamentLocation5 = document.getElementById("location5");
-const nextTournamentLocation6 = document.getElementById("location6");
+  /*Fermetures de toutes les modales*/
+  
+  //SI l'utilisateur clique sur le bouton 'close' de la modale de confirmation
+  const confirmationBtnClose = document.querySelector("#js-confirmation-close-btn");
+  confirmationBtnClose.addEventListener("click", closeModal);
+  
+  //--> Toutes les modales disparaissent
+  function closeModal() {
+    modalbg.style.display = "none";
+    document.querySelector(".modal-confirmation").style.display ="none";
+  }
 
-
-//Check des inputs + renvoi de valeur selon le check
+  
 
 
-  //Attendances Check
+/*IMPLEMENTER ET CONTOLER LES ENTREES + DISPLAY LES MSG D'ERREURS*/
 
+
+  /*Tournament attendances*/
+
+  //valeur de l'input initié à false (incorrect pour le formulaire)
   let numberOfTournamentInputCheck = false;
 
+  //récupération input et ajout d'un évènement lors du remplissage
   const numberOfTournamentAttendances = document.getElementById("quantity-of-tournaments");
   numberOfTournamentAttendances.addEventListener('blur', numberOfTournamentInputChecking);
   
+  //fonction de vérification de l'input 
   function numberOfTournamentInputChecking () {
     const inputValue = numberOfTournamentAttendances.value;
     if (inputValue === null || inputValue === undefined || inputValue.trim() === "") 
     {
+      //si incorrect --> msg d'erreur + valeur input = false
       document.getElementById("formData-tournament-attendances").setAttribute("data-error-visible", "true");
       numberOfTournamentInputCheck = false;
     }
     else 
     {
+      //si correct --> suppresion msg d'erreur + valeur input = true
       document.getElementById("formData-tournament-attendances").setAttribute("data-error-visible", "false");
       numberOfTournamentInputCheck = true;
     }
   }
 
-  //BirthDate
+
+  /*BirthDate*/
 
   let birthDateInputCheck = false;
 
@@ -116,7 +119,7 @@ const nextTournamentLocation6 = document.getElementById("location6");
   }
 
 
-  //Email check
+  /*Email*/
 
   let emailUserInputCheck = false;
 
@@ -125,22 +128,21 @@ const nextTournamentLocation6 = document.getElementById("location6");
   
   function emailInputChecking () {
     const inputValue = emailUser.value;
-    if (inputValue === null || inputValue === undefined || inputValue.trim() === "") 
+    //ajout d'une comparaison avec une REGEX
+    if (inputValue === null || inputValue === undefined || !inputValue.trim().match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) 
     {
       document.getElementById("formData-email").setAttribute("data-error-visible", "true");
       emailUserInputCheck = false;
-      //Si champ incorrect --> garde la valeur en false
     }
     else 
     {
       document.getElementById("formData-email").setAttribute("data-error-visible", "false");
       emailUserInputCheck = true;
-      //Si champ remplit correctement --> change la valeur en true
     }
   }
 
 
-  //Last name check
+  /*Last name check*/
 
   let lastNameInputCheck = false;
 
@@ -149,7 +151,7 @@ const nextTournamentLocation6 = document.getElementById("location6");
   
   function lastNameInputChecking() {
     const inputValue = lastNameUser.value;
-    if (inputValue === null || inputValue === undefined || inputValue.trim() === "") 
+    if (inputValue === null || inputValue === undefined || !inputValue.trim().match(/[a-zA-Z]{2,}$/)) 
     {
       document.getElementById("formData-last-name").setAttribute("data-error-visible", "true");
       lastNameInputCheck = false;
@@ -162,7 +164,7 @@ const nextTournamentLocation6 = document.getElementById("location6");
   }
 
 
-  //First name check
+  /*First name check*/
 
   let firstNameInputCheck = false;
 
@@ -171,7 +173,7 @@ const nextTournamentLocation6 = document.getElementById("location6");
   
   function firstNameInputChecking() {
       const inputValue = firstNameUser.value;
-      if (inputValue === null || inputValue === undefined || inputValue.trim() === "") 
+      if (inputValue === null || inputValue === undefined || !inputValue.trim().match(/[a-zA-Z]{2,}$/)) 
       {
         document.getElementById("formData-first-name").setAttribute("data-error-visible", "true");
         firstNameInputCheck = false;
@@ -184,33 +186,89 @@ const nextTournamentLocation6 = document.getElementById("location6");
     }
 
 
+  /*Location check*/
 
-//Formulaire submition
+  let locationInputCheck = false;
+  const locationBtn = document.getElementsByName('location');
 
-    const btnSubmit = document.querySelector(".btn-submit");
-    btnSubmit.addEventListener("click", (event) => {
-      event.preventDefault();
-      if (
-      firstNameInputCheck === true && 
-      lastNameInputCheck === true && 
-      emailUserInputCheck === true &&
-      birthDateInputCheck === true &&
-      numberOfTournamentInputCheck === true) 
-      {
-        alert("Formulaire correctement rempli");
-      }
-      else 
-      {
-        firstNameInputChecking()
-        lastNameInputChecking()
-        emailInputChecking ()
-        birthDateInputChecking()
-        numberOfTournamentInputChecking ()
-      }
-      
+  //valeur initiale du choix radio
+  let locationValue = null;
+
+    //Boucle qui ajoute un écouteur d'évenement pour chaque élement radio
+    for(i = 0; i<locationBtn.length; i++) {
+      locationBtn[i].addEventListener('change', (e) =>{
+        //a chaque changement de radio, on attribue la valeur du choix à la variable locationValue
+        locationValue = e.target.value;
+        //appel de la fonction de vérification de l'input avec la valeur récupérée comme argument
+        locationInputChecking(locationValue);
+      } ) }
+
+      function locationInputChecking(locationValue)  {
+        if(locationValue === null || locationValue === undefined || locationValue === false)
+        {
+          document.getElementById("formData-location").setAttribute("data-error-visible", "true");
+        }
+        else
+        {
+          locationInputCheck = true;
+          document.getElementById("formData-location").setAttribute("data-error-visible", "false");
+        }
+      };
+  
+
+  /*Check CGU*/
+
+  let cguInputCheck = false;
+  const cguAccepted = document.querySelector("#checkbox1");
+  cguAccepted.addEventListener('change', cguInputChecking);
+    
+  function cguInputChecking() {
+    if(cguAccepted.checked) {
+      cguInputCheck = true;
+      document.getElementById("formData-cgu").setAttribute("data-error-visible", "false");
+    }
+    else
+    {
+      cguInputCheck = false;
+      document.getElementById("formData-cgu").setAttribute("data-error-visible", "true");
+    }
+  }
+  
+
+  /*Formulaire submition*/
+
+  const btnSubmit = document.querySelector(".btn-submit");
+  btnSubmit.addEventListener("click", (event) => {
+
+    //suprression du comportement par défault du bouton//
+    event.preventDefault();
+
+    //SI : tous les input sont corrects 
+    if (
+    firstNameInputCheck === true && 
+    lastNameInputCheck === true && 
+    emailUserInputCheck === true &&
+    birthDateInputCheck === true &&
+    numberOfTournamentInputCheck === true &&
+    locationInputCheck === true &&
+    cguInputCheck === true) 
+
+    // --> Ferme la modale d'incription + ouvre la modale de confirmation
+    {
+      closeModalContent();
+      openConfirmation();
+    }
+
+    //SINON : -->Lance les fonctions de vérification sur chaque inputs (affichera les msg d'erreur si nécessaire)
+    else 
+    {
+      firstNameInputChecking()
+      lastNameInputChecking()
+      emailInputChecking ()
+      birthDateInputChecking()
+      numberOfTournamentInputChecking ()
+      locationInputChecking(locationValue)
+      cguInputChecking()
+     } 
     })
  
-
- 
-
-

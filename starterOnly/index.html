@@ -63,8 +63,8 @@
               onsubmit="return validate();"
             >
               <div
-                class="formData" id="formData-first-name" data-error="Veuillez renseigner au minimum 2 caractères pour ce champ.">
-                <label>Prénom</label><br>
+                class="formData" id="formData-first-name" data-error="Veuillez renseigner au minimum 2 caractères (lettres uniquements).">
+                <label class="text-label-required">Prénom</label><br>
                 <input
                   class="text-control"
                   type="text"
@@ -73,8 +73,8 @@
                 /><br>
               </div>
               <div
-                class="formData" id="formData-last-name" data-error="Veuillez renseigner au minimum 2 caractères pour ce champ.">
-                <label>Nom</label><br>
+                class="formData" id="formData-last-name" data-error="Veuillez renseigner au minimum 2 caractères (lettres uniquements).">
+                <label class="text-label-required">Nom</label><br>
                 <input
                   class="text-control"
                   type="text"
@@ -83,8 +83,8 @@
                 /><br>
               </div>
               <div
-                class="formData" id="formData-email" data-error="Veuillez renseigner une adresse au format valide.">
-                <label>E-mail</label><br>
+                class="formData" id="formData-email" data-error="Veuillez renseigner une adresse au format valide (ex: dupont@gmail.com).">
+                <label class="text-label-required">E-mail</label><br>
                 <input
                   class="text-control"
                   type="email"
@@ -94,7 +94,7 @@
               </div>
               <div
                 class="formData" id="formData-birth-date" data-error="Veuillez renseigner votre date de naissance.">
-                <label>Date de naissance</label><br>
+                <label class="text-label-required">Date de naissance</label><br>
                 <input
                   class="text-control"
                   type="date"
@@ -103,13 +103,13 @@
                 /><br>
               </div>
               <div
-                class="formData" id="formData-tournament-attendances" data-error="Veuillez renseigner une valeur pour ce champ.">
-                <label>À combien de tournois GameOn avez-vous déjà participé ?</label><br>
+                class="formData" id="formData-tournament-attendances" data-error="Veuillez renseigner une valeur numérique pour ce champ.">
+                <label class="text-label-required">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
                 <input type="number" class="text-control" id="quantity-of-tournaments" name="quantity" min="0" max="99">
               </div>
-              <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
+              <p class="text-label text-label-required">A quel tournoi souhaitez-vous participer cette année ?</p>
               <div
-                class="formData" id="formData-location" data-error="Veuillez sélectionner une option">
+                class="formData" id="formData-location" data-error="Veuillez sélectionner une option.">
                 <input
                   class="checkbox-input"
                   type="radio"
@@ -180,15 +180,15 @@
               </div>
 
               <div
-                class="formData" id="formData-cgu" data-error="Veuillez accepter les conditions d'utilisastion pour soumettre le formulaire.">
+                class="formData" id="formData-cgu" data-error="Veuillez accepter les conditions d'utilisation pour soumettre le formulaire.">
                 <input
                   class="checkbox-input"
                   type="checkbox"
                   id="checkbox1"
-                  checked
+                  
                 
                 />
-                <label class="checkbox2-label" for="checkbox1">
+                <label class="text-checkbox1 checkbox2-label text-label-required" for="checkbox1">
                   <span class="checkbox-icon"></span>
                   J'ai lu et accepté les conditions d'utilisation.
                 </label>
@@ -196,7 +196,7 @@
                 <input class="checkbox-input" type="checkbox" id="checkbox2" />
                 <label class="checkbox2-label" for="checkbox2">
                   <span class="checkbox-icon"></span>
-                  Je Je souhaite être prévenu des prochains évènements.
+                   <p class="text-checkbox2">Je souhaite être prévenu des prochains évènements.</p>
                 </label>
                 <br>
               </div>
@@ -207,6 +207,12 @@
                 value="C'est parti"
               />
             </form>
+          </div>
+        </div>
+        <div class="content modal-confirmation">
+            <div class="modal-confirmation-container">
+              <p>Vos réponses ont été enregistrées !</p>
+              <button class="btn-submit" id="js-confirmation-close-btn">Fermer</button>
           </div>
         </div>
       </div>
