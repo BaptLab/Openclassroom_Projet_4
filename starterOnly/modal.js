@@ -51,20 +51,25 @@ function launchModal() {
     document.querySelector(".modal-confirmation").style.display ="flex";
   }
   
-
+ 
   /*Fermetures de toutes les modales*/
   
   //SI l'utilisateur clique sur le bouton 'close' de la modale de confirmation
   const confirmationBtnClose = document.querySelector("#js-confirmation-close-btn");
   confirmationBtnClose.addEventListener("click", closeModal);
   
-  //--> Toutes les modales disparaissent
+  //--> Toutes les modales disparaissent + clean du formulaire
   function closeModal() {
     modalbg.style.display = "none";
     document.querySelector(".modal-confirmation").style.display ="none";
+    cleanForm();
   }
 
-  
+   //fonction qui vide le formulaire
+   function cleanForm() {
+    document.getElementById('from').reset();
+  }
+
 
 
 /*IMPLEMENTER ET CONTOLER LES ENTREES + DISPLAY LES MSG D'ERREURS*/
@@ -151,7 +156,7 @@ function launchModal() {
   
   function lastNameInputChecking() {
     const inputValue = lastNameUser.value;
-    if (inputValue === null || inputValue === undefined || !inputValue.trim().match(/[a-zA-Z]{2,}$/)) 
+    if (inputValue === null || inputValue === undefined || !inputValue.trim().match(/^[a-zA-Z]{2,}$/)) 
     {
       document.getElementById("formData-last-name").setAttribute("data-error-visible", "true");
       lastNameInputCheck = false;
@@ -173,7 +178,7 @@ function launchModal() {
   
   function firstNameInputChecking() {
       const inputValue = firstNameUser.value;
-      if (inputValue === null || inputValue === undefined || !inputValue.trim().match(/[a-zA-Z]{2,}$/)) 
+      if (inputValue === null || inputValue === undefined || !inputValue.trim().match(/^[a-zA-Z]{2,}$/)) 
       {
         document.getElementById("formData-first-name").setAttribute("data-error-visible", "true");
         firstNameInputCheck = false;
